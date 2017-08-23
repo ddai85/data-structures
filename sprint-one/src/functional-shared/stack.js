@@ -3,7 +3,7 @@ var Stack = function() {
   // but try not not reference your old code in writing the new style.
   
   var someMethod = {};
-  
+  someMethod.count = 0;
   _.extend(someMethod, stackMethods);
   return someMethod;
 };
@@ -11,7 +11,10 @@ var Stack = function() {
 
 var stackMethods = {
   size: function() {
-    return 0;
+    return this.count;
+  },
+  push: function(value) {
+    this.count++;
   }
   
   
