@@ -15,6 +15,11 @@ var stackMethods = {
   },
   push: function(value) {
     this.count++;
+  },
+  pop: function() {
+    if (this.count > 0) {
+      this.count--;
+    }
   }
   
   
