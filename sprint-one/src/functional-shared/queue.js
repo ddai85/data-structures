@@ -19,7 +19,9 @@ var queueMethods = {
     this.count++;
   },
   dequeue: function() {
-    this.count--;
+    if (this.count > 0) {
+      this.count--;
+    }
   }
   
 };
