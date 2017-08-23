@@ -14,7 +14,14 @@ var queueMethods = {
   
   size: function() {
     return this.count;
+  },
+  enqueue: function(value) {
+    this.count++;
+  },
+  dequeue: function() {
+    this.count--;
   }
+  
 };
 
 
