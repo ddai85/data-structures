@@ -10,7 +10,7 @@ var LinkedList = function() {
     //  add new node to tail if there's a list
     if (this.tail) {
       // point old tail to new tail
-      this.tail.next = newNode;
+      this.head.next = newNode;
       this.tail = newNode;
     } else {
       //  if there's list create node that is both head and tail
@@ -27,16 +27,15 @@ var LinkedList = function() {
 
   list.contains = function(target) {
     var start = this.head;
-    if (target === this.tail.value || target === this.head.value) {
-      return true;
-    }
-    // while (start !== this.tail) {
-    //   if (target === start.value) {
-    //     return true;
-    //   } else {
-    //     start = this.next;
-    //   }
+    // if (target === this.tail.value || target === this.head.value) {
+    //   return true;
     // }
+    while (start.next !== null) {
+      if (target === start.value) {
+        return true;
+      }
+      start = this.next;
+    }
     return false;
   };
 
