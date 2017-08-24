@@ -19,14 +19,22 @@ Graph.prototype.contains = function(node) {
 
 // Removes a node from the graph.
 Graph.prototype.removeNode = function(node) {
+  delete this.storage[node];
 };
 
 // Returns a boolean indicating whether two specified nodes are connected.  Pass in the values contained in each of the two nodes.
 Graph.prototype.hasEdge = function(fromNode, toNode) {
+  if (this.storage[fromNode].indexOf(toNode) !== -1) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 // Connects two nodes in a graph by adding an edge between them.
 Graph.prototype.addEdge = function(fromNode, toNode) {
+  this.storage[fromNode].push(toNode);
+  this.storage[toNode].push(fromNode);
 };
 
 // Remove an edge between any two specified (by value) nodes.
