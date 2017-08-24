@@ -12,17 +12,22 @@ var Tree = function(value) {
 var treeMethods = {};
 
 treeMethods.addChild = function(value) {
-  var childObject = {};
-  childObject.value = value;
-  
+  var childObject = Tree(value);
   this.children.push(childObject);
 };
 
 treeMethods.contains = function(target) {
+  for (var i = 0; i < this.children.length; i++) {
+    if (target === this.children[i].value) {
+      return true;
+    }
+  }
+  return false;
 };
 
 
 
 /*
  * Complexity: What is the time complexity of the above functions?
+ linear n
  */
