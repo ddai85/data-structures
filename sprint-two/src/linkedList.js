@@ -27,14 +27,14 @@ var LinkedList = function() {
 
   list.contains = function(target) {
     var start = this.head;
-    // if (target === this.tail.value || target === this.head.value) {
-    //   return true;
-    // }
+    if (target === this.tail.value) {
+      return true;
+    } 
     while (start.next !== null) {
       if (target === start.value) {
         return true;
       }
-      start = this.next;
+      start = start.next;
     }
     return false;
   };
