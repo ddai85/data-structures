@@ -4,22 +4,25 @@ var LinkedList = function() {
   list.tail = null;
 
   list.addToTail = function(value) {
+    // declare new node to add
     var newNode = Node(value);
+    
+    //  add new node to tail if there's a list
     if (this.tail) {
+      // point old tail to new tail
       this.tail.next = newNode;
-      if (!this.head) {
-        this.head = this.tail;
-      }
       this.tail = newNode;
     } else {
-      this.tail = Node(value);
+      //  if there's list create node that is both head and tail
+      this.tail = newNode;
+      this.head = newNode;
     }
   };
 
   list.removeHead = function() {
     var oldHead = this.head;
-    this.head = this.head.next;
-    return oldHead;
+    this.head = oldHead.next;
+    return oldHead.value;
   };
 
   list.contains = function(target) {
