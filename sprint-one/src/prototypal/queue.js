@@ -19,7 +19,11 @@ var queueMethods = {
   dequeue: function() {
     if (this.count > 0) {
       this.count--;
-      return this.storage[0];
+      var toDelete = this.storage[0];
+      for (var i = 0; i < this.count; i++) {
+        this.storage[i] = this.storage[i + 1];
+      }
+      return toDelete;
     }
   }};
 
