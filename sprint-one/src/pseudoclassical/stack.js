@@ -10,4 +10,7 @@ var Stack = function() {
 Stack.prototype.size = function() {
   return this.count;
 };
+Stack.prototype.push = function(value) {
+  this.count++;
+};
 
