@@ -7,6 +7,7 @@ var Stack = function() {
   
   var makeStacks = Object.create(stackMethods);
   makeStacks.count = 0;
+  makeStacks.storage = {};
   return makeStacks;
 
 
@@ -17,11 +18,13 @@ var stackMethods = {
     return this.count;
   }, 
   push: function(value) {
+    this.storage[this.count] = value;
     this.count++;
   }, 
   pop: function() {
     if (this.count > 0) {
       this.count--;
+      return this.storage[this.count];
     }
   }
   
