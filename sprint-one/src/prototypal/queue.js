@@ -19,7 +19,7 @@ var queueMethods = {
   dequeue: function() {
     if (this.count > 0) {
       this.count--;
-      return this.storage[this.count];
+      return this.storage[0];
     }
   }};
 
