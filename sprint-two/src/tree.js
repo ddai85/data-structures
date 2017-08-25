@@ -14,6 +14,7 @@ var treeMethods = {};
 treeMethods.addChild = function(value) {
   var childObject = Tree(value);
   this.children.push(childObject);
+  //O(1) complexity
 };
 
 treeMethods.contains = function(target) {
@@ -26,6 +27,7 @@ treeMethods.contains = function(target) {
     }
   }
   return false;
+  //O(N) even though recursive
 };
 
 

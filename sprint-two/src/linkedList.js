@@ -17,12 +17,16 @@ var LinkedList = function() {
       this.tail = newNode;
       this.head = newNode;
     }
+    
+    //O(1) complexity
   };
 
   list.removeHead = function() {
     var oldHead = this.head;
     this.head = oldHead.next;
     return oldHead.value;
+    
+    //O(1) complexity
   };
 
   list.contains = function(target) {
@@ -40,6 +44,7 @@ var LinkedList = function() {
   };
 
   return list;
+  //O(N) complexity because of while loop
 };
 
 var Node = function(value) {

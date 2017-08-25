@@ -8,6 +8,7 @@ var setPrototype = {};
 
 setPrototype.add = function(item) {
   this._storage.push(item);
+  //O(1) complexity
 };
 
 setPrototype.contains = function(item) {
@@ -15,9 +16,12 @@ setPrototype.contains = function(item) {
     return true;
   }
   return false;
+  //O(N) complexity because of indexOf
 };
 
 setPrototype.remove = function(item) {
+  this._storage.splice(this._storage.indexOf(item), 1);
+  //O(N) complexity because of both splice and indexOf
 };
 
 /*
