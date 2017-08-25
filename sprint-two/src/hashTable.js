@@ -20,7 +20,7 @@ HashTable.prototype.insert = function(k, v) {
       var existingTuple = existingBucket.get(i);
       //check to see if key exists in a tuple already
       if (!existingBucket.get(i)) {
-        existingBucket.set(0, tuple);
+        existingBucket.set(i, tuple);
         break;
       }
       if (existingTuple.get(0) === k) {
@@ -64,8 +64,7 @@ HashTable.prototype.remove = function(k) {
   var index = getIndexBelowMaxForKey(k, this._limit);
   
   var searchBucket = this._storage.get(index);
-  
-  debugger;
+
   //  locate the tuple via k and index
   for (var i = 0; i < this._limit; i++) {
     var searchTuple = searchBucket.get(i);
