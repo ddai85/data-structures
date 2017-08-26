@@ -69,10 +69,27 @@ BinarySearchTree.prototype.contains = function(target) {
   return search(this);
 };
 
-BinarySearchTree.prototype.depthFirstLog = function() {
-  
-  //var 
+BinarySearchTree.prototype.depthFirstLog = function(cb) {
+  // start with an recursive function that takes in node and traveses all "branches"
+  var traverseTree = function (node) {
+    cb(node.value);
+  // if (node.left) {
+    if (node.left) {
+      // recurse left;
+      traverseTree(node.left);
+    } 
     
+  // else if (node.right) {  bad pseudocode
+    if (node.right) {
+      // recurse right;
+
+      traverseTree(node.right);
+    }
+      
+  
+  // at every node, run cb passing in node
+  }; 
+  traverseTree(this);
 };
 
 /*
