@@ -1,7 +1,7 @@
 
 
-var HashTable = function(size) {
-  this._limit = size;
+var HashTable = function() {
+  this._limit = 8;
   this._storage = LimitedArray(this._limit);
   this._count = 0;
 };
@@ -37,6 +37,9 @@ HashTable.prototype.insert = function(k, v) {
     this._storage.set(index, bucket);
   }
   
+  if (this._count > (this._limit * 0.75)) {
+    this.resize(this._limit * 2);
+  }
 };
 
 HashTable.prototype.retrieve = function(k) {
@@ -45,14 +48,15 @@ HashTable.prototype.retrieve = function(k) {
   //index will tell us which bucket array the tuple might be in
   //iterate through bucket array until we find key that matches k
   var bucket = this._storage.get(index);
-  for (var i = 0; i < bucket.length; i++) {
-    var tuple = bucket[i];
-    if (tuple[0] === k) {
-      return tuple[1];
+  if (bucket) {
+    for (var i = 0; i < bucket.length; i++) {
+      var tuple = bucket[i];
+      if (tuple[0] === k) {
+        return tuple[1];
+      }
     }
+    return undefined;
   }
-  return undefined;
-
 };
 
 HashTable.prototype.remove = function(k) {
@@ -61,23 +65,45 @@ HashTable.prototype.remove = function(k) {
   var searchBucket = this._storage.get(index);
 
   //  locate the tuple via k and index
-  for (var i = 0; i < searchBucket.length; i++) {
-    var searchTuple = searchBucket[i];
-    if (searchTuple[0] === k) {
-      searchBucket[i] = searchBucket[i].splice(i, 1);
-      this._count--;
-      break;
+  if (searchBucket) {
+    for (var i = 0; i < searchBucket.length; i++) {
+      var searchTuple = searchBucket[i];
+      if (searchTuple[0] === k) {
+        searchBucket[i] = searchBucket[i].splice(i, 1);
+        this._count--;
+        break;
+      }
+      
+      //  set bucket[i] to undefined
     }
-    
-    //  set bucket[i] to undefined
+  }
+  if (this._count < (this._limit * 0.25) && this._limit > 8) {
+    this.resize(this._limit * 0.5);
   }
     
 };
 
 HashTable.prototype.resize = function(newSize) {
+  
+  newHashTable = new HashTable();
+  newHashTable._limit = newSize;
+  newHashTable._storage = LimitedArray(newSize);
 
-
-
+  //iterate over this.storage to get all buckets
+  for (var i = 0; i < this._limit; i++) {
+    //iterate over all buckets to get all tuples
+    if (this._storage.get(i)) {
+      var bucket = this._storage.get(i);
+      //.insert tuples into newHashTable
+      for (var j = 0; j < bucket.length; j++) {
+        newHashTable.insert(bucket[j][0], bucket[j][1]);  
+      }
+    }  
+  }
+      
+  //hashTable = newHashTable;
+  this._storage = newHashTable._storage;
+  this._limit = newSize;
 };
 
 

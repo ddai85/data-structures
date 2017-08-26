@@ -4,7 +4,7 @@ describe('hashTable', function() {
 
 
   beforeEach(function() {
-    hashTable = new HashTable();
+    hashTable = new HashTable(8);
   });
 
   it('should have methods named "insert", "remove", and "retrieve', function() {
@@ -73,4 +73,21 @@ describe('hashTable', function() {
     hashTable.remove('Mr.');
     expect(hashTable._limit).to.equal(8);
   });
+
+  it ('should be able to retrieve everything correctly after resizing (with random insertion/removal)', function() {
+    var valuesInHash = [];
+    for (var i = 0; i < 10000; i++) {
+      var randomVar = Math.random();
+      var randomVal = Math.floor(Math.random() * 1000);
+      if (randomVar > 0.5) {
+        hashTable.insert(randomVal, randomVal);
+        valuesInHash[randomVal] = randomVal;
+      } else {
+        hashTable.remove(randomVal);
+        valuesInHash[randomVal] = undefined;
+      }
+      expect(hashTable.retrieve(randomVal)).to.equal(valuesInHash[randomVal]);
+    }
+  });
+
 });
