@@ -79,7 +79,7 @@ HashTable.prototype.remove = function(k) {
     for (var i = 0; i < searchBucket.length; i++) {
       var searchTuple = searchBucket[i];
       if (searchTuple[0] === k) {
-        searchBucket.splice(i, 1);
+        searchBucket[i][1] = undefined;
         this._count--;
         break;
       }
