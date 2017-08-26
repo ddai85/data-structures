@@ -7,6 +7,9 @@ var HashTable = function() {
 };
 
 HashTable.prototype.insert = function(k, v) {
+  if (k === undefined) {
+    return null;
+  }
   var index = getIndexBelowMaxForKey(k, this._limit);
   //create tuple LimitedArray with length 2 and insert key/value
   var tuple = [k, v];
@@ -43,6 +46,9 @@ HashTable.prototype.insert = function(k, v) {
 };
 
 HashTable.prototype.retrieve = function(k) {
+  if (k === undefined) {
+    return null;
+  }
   var index = getIndexBelowMaxForKey(k, this._limit);
 
   //index will tell us which bucket array the tuple might be in
@@ -56,10 +62,14 @@ HashTable.prototype.retrieve = function(k) {
       }
     }
     return undefined;
-  }
+  } 
+  return undefined;
 };
 
 HashTable.prototype.remove = function(k) {
+  if (k === undefined) {
+    return null;
+  }
   var index = getIndexBelowMaxForKey(k, this._limit);
   
   var searchBucket = this._storage.get(index);
@@ -69,7 +79,7 @@ HashTable.prototype.remove = function(k) {
     for (var i = 0; i < searchBucket.length; i++) {
       var searchTuple = searchBucket[i];
       if (searchTuple[0] === k) {
-        searchBucket[i] = searchBucket[i].splice(i, 1);
+        searchBucket.splice(i, 1);
         this._count--;
         break;
       }
@@ -77,6 +87,7 @@ HashTable.prototype.remove = function(k) {
       //  set bucket[i] to undefined
     }
   }
+
   if (this._count < (this._limit * 0.25) && this._limit > 8) {
     this.resize(this._limit * 0.5);
   }
@@ -88,6 +99,7 @@ HashTable.prototype.resize = function(newSize) {
   newHashTable = new HashTable();
   newHashTable._limit = newSize;
   newHashTable._storage = LimitedArray(newSize);
+  //newHashTable._count = this._count;
 
   //iterate over this.storage to get all buckets
   for (var i = 0; i < this._limit; i++) {
@@ -96,7 +108,8 @@ HashTable.prototype.resize = function(newSize) {
       var bucket = this._storage.get(i);
       //.insert tuples into newHashTable
       for (var j = 0; j < bucket.length; j++) {
-        newHashTable.insert(bucket[j][0], bucket[j][1]);  
+        newHashTable.insert(bucket[j][0], bucket[j][1]);
+        //bucket.splice(j, 1);  
       }
     }  
   }
