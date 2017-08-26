@@ -76,7 +76,7 @@ describe('hashTable', function() {
 
   it ('should be able to retrieve everything correctly after resizing (with random insertion/removal)', function() {
     var valuesInHash = [];
-    for (var i = 0; i < 10000; i++) {
+    for (var i = 0; i < 200; i++) {
       var randomVar = Math.random();
       var randomVal = Math.floor(Math.random() * 1000);
       if (randomVar > 0.5) {

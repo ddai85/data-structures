@@ -99,7 +99,6 @@ HashTable.prototype.resize = function(newSize) {
   newHashTable = new HashTable();
   newHashTable._limit = newSize;
   newHashTable._storage = LimitedArray(newSize);
-  //newHashTable._count = this._count;
 
   //iterate over this.storage to get all buckets
   for (var i = 0; i < this._limit; i++) {
@@ -109,7 +108,7 @@ HashTable.prototype.resize = function(newSize) {
       //.insert tuples into newHashTable
       for (var j = 0; j < bucket.length; j++) {
         newHashTable.insert(bucket[j][0], bucket[j][1]);
-        //bucket.splice(j, 1);  
+        bucket.slice(j, 1);  
       }
     }  
   }
