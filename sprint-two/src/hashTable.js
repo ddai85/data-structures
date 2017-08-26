@@ -1,8 +1,9 @@
 
 
-var HashTable = function() {
-  this._limit = 8;
+var HashTable = function(size) {
+  this._limit = size;
   this._storage = LimitedArray(this._limit);
+  this._count = 0;
 };
 
 HashTable.prototype.insert = function(k, v) {
@@ -12,24 +13,26 @@ HashTable.prototype.insert = function(k, v) {
   
   //at storage_index check if bucket array exists
   if (this._storage.get(index)) {
-    //if bucket exists, insert tuple at first 'undefined' space
     var existingBucket = this._storage.get(index);
+    //iterate over existing tuples to check if key exists
     for (var i = 0; i < existingBucket.length; i++) {
       var existingTuple = existingBucket[i];
-      //check to see if key exists in a tuple already
+      //if key exists, replace property value of key
       if (existingTuple[0] === k) {
         existingTuple[1] = v;
         break;
       }
     }    
+    //if key doesn't exist already, create new tuple
     existingBucket.push(tuple);
-
+    this._count++;
   } else {
     //else create bucket with length limit
     var bucket = [];
     
     //insert tuple into bucket at first position
     bucket[0] = tuple;
+    this._count++;
     //insert bucket into storage_index
     this._storage.set(index, bucket);
   }
@@ -62,12 +65,19 @@ HashTable.prototype.remove = function(k) {
     var searchTuple = searchBucket[i];
     if (searchTuple[0] === k) {
       searchBucket[i] = searchBucket[i].splice(i, 1);
+      this._count--;
       break;
     }
     
     //  set bucket[i] to undefined
   }
     
+};
+
+HashTable.prototype.resize = function(newSize) {
+
+
+
 };
 
 
